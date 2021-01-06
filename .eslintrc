@@ -10,6 +10,7 @@
       "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-        
+        "trailing-comma": [ false ],
+        "@typescript-eslint/no-var-requires": 0
     }
   }
