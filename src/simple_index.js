@@ -1,27 +1,40 @@
 const express = require( "express" );
 const sharp = require("sharp");
-// const path = require("path");
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
-const port = 8080; // default port to listen
+app.use(cors());
+app.use(bodyParser.urlencoded({
+    extended: true
+ }));
+ app.use(bodyParser.json());
 
-// const dir = path.join(__dirname, 'images');
+const port = 3000;
 
-app.use(express.static('views'));
-// define a route handler for the default home page
-app.get( "/", ( req, res ) => {
-    res.send('Hello World!');
-} );
+app.use(express.static('public'));
 
 // start the Express server
 app.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` );
-} );
+    console.log( `Server started at http://localhost:${ port }` );
+});
 
-// sharp('../images/fjord.jpg')
-//   .resize(300, 200)
-//   .toFile('output.jpg', function(err) {
-//     // output.jpg is a 300 pixels wide and 200 pixels high image
-//     // containing a scaled and cropped version of input.jpg
-//   });
+app.get('/', (req, res) => {
+    // res.render('./views/index');
+    res.send('Post image name and size to backend');
+})
 
+// Handle posting 
+app.post('/', (req, res) => {
+    res.send('OK');
+    // TODO: Check if image already processed
+
+    //TODO: If no image matches, return error message
+
+    // TODO: Make sharp a separate module
+    sharp(`./views/images/${req.body.name}.jpg`)
+        .resize(req.body.width, req.body.height)
+        .toFile(`./views/processed_images/${req.body.name}${req.body.width}x${req.body.height}.jpg`);
+});
+
+//TODO: Handle errors
