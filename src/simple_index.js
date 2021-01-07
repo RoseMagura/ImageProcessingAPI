@@ -1,8 +1,7 @@
-const express = require( "express" );
-const sharp = require("sharp");
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const fs = require('fs');
+import { process_image } from './js/handle_sharp.js';
+import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
 
 const app = express();
 // Use cors to prevent connection issues
@@ -27,6 +26,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     const path = `./views/images/${req.query.name}.jpg`;
     const processed = `./views/processed_images/${req.query.name}${req.query.width}x${req.query.height}.jpg`;
+   
     // Check if image already processed
     try {
         if(fs.existsSync(processed)) {
@@ -35,11 +35,8 @@ app.post('/', (req, res) => {
             // If hasn't been processed yet, do now
             try{ 
                 if(fs.existsSync(path)) {
-                    // TODO: Make sharp a separate module
-                    sharp(path)
-                        .resize(parseInt(req.query.width), parseInt(req.query.height))
-                        .toFile(processed);
-                    res.send('Successly processed image');
+                    const process_result = process_image(req.query.name, req.query.width, req.query.height);
+                    res.send(process_result);
                 } else{
                     // If no image matches, return error message
                     res.send('File not found. Please double-check spelling.');

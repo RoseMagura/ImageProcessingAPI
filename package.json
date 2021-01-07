@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Provide different sizes of images for easy use",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext .ts",
