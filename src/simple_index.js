@@ -28,8 +28,8 @@ app.get('/', (req, res) => {
 
 // Handle posting 
 app.post('/', (req, res) => {
-    const path = `./views/images/${req.body.name}.jpg`;
-    const processed = `./views/processed_images/${req.body.name}${req.body.width}x${req.body.height}.jpg`;
+    const path = `./views/images/${req.query.name}.jpg`;
+    const processed = `./views/processed_images/${req.query.name}${req.query.width}x${req.query.height}.jpg`;
     // Check if image already processed
     try {
         if(fs.existsSync(processed)) {
@@ -38,12 +38,13 @@ app.post('/', (req, res) => {
             // If hasn't been processed yet, do now
             try{ 
                 if(fs.existsSync(path)) {
-                    res.send('Processing image...');
+                    // res.send('Processing image...');
 
                     // TODO: Make sharp a separate module
                     sharp(path)
-                        .resize(req.body.width, req.body.height)
+                        .resize(parseInt(req.query.width), parseInt(req.query.height))
                         .toFile(processed);
+                    res.send('Successly processed image');
                 } else{
                     // If no image matches, return error message
                     res.send('File not found. Please double-check spelling.');
@@ -56,5 +57,34 @@ app.post('/', (req, res) => {
         console.log(error);
     }
 });
+//     const path = `./views/images/${req.body.name}.jpg`;
+//     const processed = `./views/processed_images/${req.body.name}${req.body.width}x${req.body.height}.jpg`;
+//     // Check if image already processed
+//     try {
+//         if(fs.existsSync(processed)) {
+//             res.send('File already processed. Check output folder.')
+//         } else {
+//             // If hasn't been processed yet, do now
+//             try{ 
+//                 if(fs.existsSync(path)) {
+//                     res.send('Processing image...');
+
+//                     // TODO: Make sharp a separate module
+//                     sharp(path)
+//                         .resize(req.body.width, req.body.height)
+//                         .toFile(processed);
+//                 } else{
+//                     // If no image matches, return error message
+//                     res.send('File not found. Please double-check spelling.');
+//                 }
+//             } catch (error) {
+//                 console.log('error', error);
+//             }
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
+
 
 //TODO: Handle errors
