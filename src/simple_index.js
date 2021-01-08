@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 
-const app = express();
+export const app = express();
 // Use cors to prevent connection issues
 
 app.use(cors());
@@ -67,4 +67,4 @@ handleError(404, "Page Not Found");
 handleError(403, "Method Not Allowed");
 handleError(500, "Server Issue");
 
-module.exports = app;
+export default app;

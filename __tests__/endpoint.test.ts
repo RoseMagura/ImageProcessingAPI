@@ -1,13 +1,16 @@
-const sum
-    = (...a: number[]) =>
-      a.reduce((acc, val) => acc + val, 0);
+import app from "../src/index";
+import supertest from "supertest";
 
-
-test('basic', () => {
-expect(sum()).toBe(0);
+const request = supertest(app);
+it("Checking endpoint basic access", async (done) => {
+  const res = await request.get("/");
+  expect(res.status).toBe(200);
+  expect(res.text).toBe("Hello world!");
+  done();
 });
 
-test('basic again', () => {
-expect(sum(1, 2)).toBe(3);
-});
+// Check 404 error code
+it("Checking that entering undefined endpoint gives 404", async (done) => {});
+// Test successful post
 
+// Test unsuccessful post (image not found)
