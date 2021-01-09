@@ -1,7 +1,7 @@
-import fs from "fs";
-import sharp from "sharp";
+import sharp = require("sharp");
 
-const process_image = (name, width, height) => {
+// export const process_image = (name: string, width: string, height: string) => {
+export default function process_image(name: string, width: string, height: string): string {  
   const path = `./views/images/${name}.jpg`;
   const processed = `./views/processed_images/${name}${width}x${height}.jpg`;
   try {
@@ -13,4 +13,4 @@ const process_image = (name, width, height) => {
   return "Successfully processed image. Check views/processed_images";
 };
 
-export default process_image;
+// export default process_image;
