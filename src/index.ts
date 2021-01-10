@@ -22,7 +22,7 @@ app.post("/", (req: any, res: Response): void => {
       // If hasn't been processed yet, do now
       try {
         if (fs.existsSync(path)) {
-          const process_result: string = process_image(
+          const process_result: Promise<string> = process_image(
             req.query.name,
             req.query.width,
             req.query.height

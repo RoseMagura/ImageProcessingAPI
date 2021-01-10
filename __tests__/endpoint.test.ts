@@ -37,9 +37,6 @@ it('Checking that posting runs succesfully', async (done) => {
 // Test image processing
 it('Checking that image is correctly processed', () => {
     const result = process_image('palmtunnel', '300', '300');
-    if (result) {
-        console.log('correctly processed');
-    }
     expect(
         fs.existsSync('./src/views/processed_images/palmtunnel300x300.jpg')
     ).toBe(true);
