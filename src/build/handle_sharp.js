@@ -2,14 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.process_image = void 0;
 var sharp = require("sharp");
-var process_image = function (name, width, height, test) {
-    if (test === void 0) { test = false; }
-    var path = "./views/images/" + name + ".jpg";
-    var processed = "./views/processed_images/" + name + width + "x" + height + ".jpg";
-    if (test) {
-        path = "./__tests__/test_images/" + name + ".jpg";
-        processed = "./__tests__/test_processed_images/" + name + width + "x" + height + ".jpg";
-    }
+var process_image = function (name, width, height) {
+    var path = "./src/views/images/" + name + ".jpg";
+    var processed = "./src/views/processed_images/" + name + width + "x" + height + ".jpg";
     try {
         sharp(path).resize(parseInt(width), parseInt(height)).toFile(processed);
     }

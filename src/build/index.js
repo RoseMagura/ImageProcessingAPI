@@ -1,9 +1,7 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var handle_sharp_1 = require("./handle_sharp");
-// import * as process_image from './handle_sharp';
 var express = require("express");
-// import cors from "cors";
 var fs = require("fs");
 var app = express();
 // Set up front page with some instructions
@@ -12,8 +10,8 @@ app.get("/", function (req, res) {
 });
 // Handle posting
 app.post("/", function (req, res) {
-    var path = "./views/images/" + req.query.name + ".jpg";
-    var processed = "./views/processed_images/" + req.query.name + req.query.width + "x" + req.query.height + ".jpg";
+    var path = "./src/views/images/" + req.query.name + ".jpg";
+    var processed = "./src/views/processed_images/" + req.query.name + req.query.width + "x" + req.query.height + ".jpg";
     // Check if image already processed
     try {
         if (fs.existsSync(processed)) {
@@ -23,7 +21,7 @@ app.post("/", function (req, res) {
             // If hasn't been processed yet, do now
             try {
                 if (fs.existsSync(path)) {
-                    var process_result = handle_sharp_1["default"](req.query.name, req.query.width, req.query.height);
+                    var process_result = handle_sharp_1.process_image(req.query.name, req.query.width, req.query.height);
                     res.send(process_result);
                 }
                 else {
@@ -43,11 +41,11 @@ app.post("/", function (req, res) {
 // Handle other possible errors
 var handleError = function (errorCode, errorMsg) {
     app.use(function (err, res) {
-        console.log('Couldn\'t access', err.url);
+        console.log("Couldn't access", err.url);
         res.status(errorCode).send(errorMsg);
     });
 };
 handleError(404, "Page Not Found");
 handleError(403, "Method Not Allowed");
 handleError(500, "Server Issue");
-exports["default"] = app;
+exports.default = app;
