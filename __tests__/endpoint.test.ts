@@ -29,17 +29,18 @@ it('Checking that posting runs succesfully', async (done) => {
     const res = await request.post('/?name=palmtunnel&width=300&height=500');
     expect(res.status).toBe(200);
     expect(res.text).toBe(
-        'Successfully processed image. Check views/processed_images'
+        'Created image: jpeg with height of 500 and width of 300'
     );
     done();
 });
 
 // Test image processing
-it('Checking that image is correctly processed', () => {
-    process_image('palmtunnel', '300', '300');
+it('Checking that image is correctly processed', async (done) => {
+    await process_image('palmtunnel', '300', '300');
     expect(
         fs.existsSync('./src/views/processed_images/palmtunnel300x300.jpg')
     ).toBe(true);
+    done();
 });
 
 // Test unsuccessful post (image not found)
