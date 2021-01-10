@@ -21,15 +21,13 @@ app.post("/", (req: Request, res: Response): void => {
   } else {
     // If hasn't been processed yet, do now
     if (fs.existsSync(path)) {
-      process_image(
-        url_params.name,
-        url_params.width,
-        url_params.height
-      ).then((value: any) => {
-        res.send(
-          `Created image: ${value.format} with height of ${value.height} and width of ${value.width}`
-        );
-      });
+      process_image(url_params.name, url_params.width, url_params.height).then(
+        (value: any) => {
+          res.send(
+            `Created image: ${value.format} with height of ${value.height} and width of ${value.width}`
+          );
+        }
+      );
     } else {
       // If no image matches, return error message
       res.send("File not found. Please double-check spelling.");
