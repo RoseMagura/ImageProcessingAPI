@@ -19,7 +19,6 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/", (req: any, res: Response) => {
     const path = `./src/views/images/${req.query.name}.jpg`;
     const processed = `./src/views/processed_images/${req.query.name}${req.query.width}x${req.query.height}.jpg`;
-  
     // Check if image already processed
     try {
       if (fs.existsSync(processed)) {
