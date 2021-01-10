@@ -1,4 +1,4 @@
-import process_image from "./handle_sharp";
+import { process_image } from "./handle_sharp";
 import express = require("express");
 import fs = require("fs");
 
