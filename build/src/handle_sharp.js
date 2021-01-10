@@ -1,10 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.process_image = void 0;
 var sharp = require("sharp");
-// export const process_image = (name: string, width: string, height: string) => {
-function process_image(name, width, height) {
+var process_image = function (name, width, height, test) {
+    if (test === void 0) { test = false; }
     var path = "./views/images/" + name + ".jpg";
     var processed = "./views/processed_images/" + name + width + "x" + height + ".jpg";
+    if (test) {
+        path = "./__tests__/test_images/" + name + ".jpg";
+        processed = "./__tests__/test_processed_images/" + name + width + "x" + height + ".jpg";
+    }
     try {
         sharp(path).resize(parseInt(width), parseInt(height)).toFile(processed);
     }
@@ -13,7 +18,5 @@ function process_image(name, width, height) {
         return "failure";
     }
     return "Successfully processed image. Check views/processed_images";
-}
-exports.default = process_image;
-;
-// export default process_image;
+};
+exports.process_image = process_image;

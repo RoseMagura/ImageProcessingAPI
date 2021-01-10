@@ -1,18 +1,24 @@
 import { process_image } from "./handle_sharp";
 import express = require("express");
+import { Request, Response } from 'express';
 import fs = require("fs");
 
 const app = express();
 
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server started at http://localhost:${port}`);
+});
+
 // Set up front page with some instructions
-app.get("/", (req: any, res: { send: (arg0: string) => void }) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Post image name and size through curl or Postman");
 });
 
 // Handle posting
-app.post("/", (req: any, res) => {
-    const path = `./views/images/${req.query.name}.jpg`;
-    const processed = `./views/processed_images/${req.query.name}${req.query.width}x${req.query.height}.jpg`;
+app.post("/", (req: any, res: Response) => {
+    const path = `./src/views/images/${req.query.name}.jpg`;
+    const processed = `./src/views/processed_images/${req.query.name}${req.query.width}x${req.query.height}.jpg`;
   
     // Check if image already processed
     try {

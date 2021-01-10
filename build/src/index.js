@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var handle_sharp_1 = __importDefault(require("./handle_sharp"));
+var handle_sharp_1 = require("./handle_sharp");
 var express = require("express");
 var fs = require("fs");
 var app = express();
@@ -24,7 +21,7 @@ app.post("/", function (req, res) {
             // If hasn't been processed yet, do now
             try {
                 if (fs.existsSync(path)) {
-                    var process_result = handle_sharp_1.default(req.query.name, req.query.width, req.query.height);
+                    var process_result = handle_sharp_1.process_image(req.query.name, req.query.width, req.query.height);
                     res.send(process_result);
                 }
                 else {
