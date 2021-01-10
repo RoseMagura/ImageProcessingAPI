@@ -11,7 +11,7 @@ app.get("/", (req: Request, res: Response): void => {
 });
 
 // Handle posting
-app.post("/", (req: any, res: Response): void => {
+app.post("/", async(req: any, res: Response) => {
   const path = `./src/views/images/${req.query.name}.jpg`;
   const processed = `./src/views/processed_images/${req.query.name}${req.query.width}x${req.query.height}.jpg`;
   // Check if image already processed
@@ -22,11 +22,12 @@ app.post("/", (req: any, res: Response): void => {
       // If hasn't been processed yet, do now
       try {
         if (fs.existsSync(path)) {
-          const process_result: Promise<string> = process_image(
+          const process_result = await process_image(
             req.query.name,
             req.query.width,
             req.query.height
           );
+          console.log(typeof process_result);
           res.send(process_result);
         } else {
           // If no image matches, return error message
