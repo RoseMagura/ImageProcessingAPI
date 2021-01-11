@@ -67,6 +67,8 @@ also gives a good explaination.
 The post request and URL params should be in this format:
     `http://localhost:3000/?name=imageName&width=300&height=300`
 
+Just send the post to the '/' endpoint. 
+
 You don't need any authentication or API keys.
 As long as you use the correct image name, the file should be processed and
 sent to the folder in `./src/views/processed_images`.
